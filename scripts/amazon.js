@@ -1,31 +1,3 @@
-// const products = [{
-//   name: 'Black and Gray Athletic Cotton Socks - 6 Pairs',
-//   priceCents : 1090,
-//   rating : {
-//     stars : 4.5,
-//     count : 87
-//   },
-//   image : 'images/products/athletic-cotton-socks-6-pairs.jpg'
-// },
-// {
-//   name: 'Intermediate Size Basketball',
-//   priceCents : 2095,
-//   rating : {
-//     stars : 4,
-//     count : 127
-//   },
-//   image : 'images/products/intermediate-composite-basketball.jpg'
-// },
-// {
-//   name: 'Adults Plain Cotton T-Shirt - 2 Pack',
-//   priceCents : 799,
-//   rating : {
-//     stars : 4.5,
-//     count : 56
-//   },
-//   image : 'images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg'
-// }]
-//As yeh data ab data.js se load krenge;
 
 let productsHTML = '';
 products.forEach((product)=>{ // each parameter from product saves in this product and which we will use in the function
@@ -75,13 +47,38 @@ products.forEach((product)=>{ // each parameter from product saves in this produ
         Added
       </div>
 
-      <button class="add-to-cart-button button-primary">
+      <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id = "${product.id}">
         Add to Cart
       </button>
     </div>
   `;
-  console.log(productsHTML);
+  // console.log(productsHTML);
 })
 
  document.querySelector('.js-products-grid').innerHTML = productsHTML;
 //Now there is no need of product container in the html file
+
+// it will select all quieroes with matching class
+document.querySelectorAll('.js-add-to-cart').forEach((button) =>{// button k place pe like k yaa kuch or bhi likh sakte hai
+  button.addEventListener('click',()=>{
+    // console.log('Added product');
+    // console.log(button.dataset.productName);
+    const productId = button.dataset.productId;
+    let matchingItem;
+    cart.forEach((item)=>{
+      if(item.productId == productId)
+          matchingItem = item;
+    })
+
+    if(matchingItem){
+      matchingItem.quantity++;
+    }
+    else{
+      cart.push({
+        productId:productId,
+        quantity:1
+      });
+    }
+    console.log(cart);
+  })
+})
