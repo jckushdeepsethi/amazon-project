@@ -42,7 +42,7 @@ products.forEach((product)=>{ // each parameter from product saves in this produ
 
       <div class="product-spacer"></div>
 
-      <div class="added-to-cart">
+      <div class="added-to-cart js-added-to-cart-${product.id}">
         <img src="images/icons/checkmark.png">
         Added
       </div>
@@ -60,6 +60,7 @@ products.forEach((product)=>{ // each parameter from product saves in this produ
 
 // it will select all quieroes with matching class
 document.querySelectorAll('.js-add-to-cart').forEach((button) =>{// button k place pe like k yaa kuch or bhi likh sakte hai
+  let addedMessageTimeoutId;
   button.addEventListener('click',()=>{
     // console.log('Added product');
     // console.log(button.dataset.productName);
@@ -83,9 +84,21 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) =>{// button k pla
     cart.forEach((item)=>{
       cartQuantity += item.quantity;
     });
-
+    const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+    addedMessage.classList.add('added-to-cart-visible');
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
     console.log(cart);
+    
+    if (addedMessageTimeoutId) {
+      clearTimeout(addedMessageTimeoutId);
+    }
 
+    const timeoutId = setTimeout(() => {
+      addedMessage.classList.remove('added-to-cart-visible');
+    }, 2000);
+
+    // Save the timeoutId so we can stop it later.
+    addedMessageTimeoutId = timeoutId;
+    
   });
 })
