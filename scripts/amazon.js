@@ -1,4 +1,5 @@
-
+import { cart } from "../data/cart.js";
+import { products } from "../data/products.js";
 let productsHTML = '';
 products.forEach((product)=>{ // each parameter from product saves in this product and which we will use in the function
   // const html = `
