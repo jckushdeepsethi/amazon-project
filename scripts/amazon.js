@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart , addTocart } from "../data/cart.js";
 import { products } from "../data/products.js";
 let productsHTML = '';
 products.forEach((product)=>{ // each parameter from product saves in this product and which we will use in the function
@@ -58,7 +58,15 @@ products.forEach((product)=>{ // each parameter from product saves in this produ
 
  document.querySelector('.js-products-grid').innerHTML = productsHTML;
 //Now there is no need of product container in the html file
-
+function updateCart(){ //isko cart.js me nhi daal rhe
+  let cartQuantity = 0;
+  cart.forEach((item)=>{
+    cartQuantity += item.quantity;
+  });
+  
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+  console.log(cart);
+}
 // it will select all quieroes with matching class
 document.querySelectorAll('.js-add-to-cart').forEach((button) =>{// button k place pe like k yaa kuch or bhi likh sakte hai
   let addedMessageTimeoutId;
@@ -66,29 +74,10 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) =>{// button k pla
     // console.log('Added product');
     // console.log(button.dataset.productName);
     const {productId} = button.dataset;
-    let matchingItem;
-    cart.forEach((item)=>{
-      if(item.productId == productId)
-          matchingItem = item;
-    });
-    const quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
-    if(matchingItem){
-      matchingItem.quantity+=quantity;
-    }
-    else{
-      cart.push({
-        productId,
-        quantity
-      });
-    }
-    let cartQuantity = 0;
-    cart.forEach((item)=>{
-      cartQuantity += item.quantity;
-    });
+    addTocart(productId);
+    updateCart();
     const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
     addedMessage.classList.add('added-to-cart-visible');
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-    console.log(cart);
     
     if (addedMessageTimeoutId) {
       clearTimeout(addedMessageTimeoutId);
