@@ -1,6 +1,7 @@
 import { cart , addTocart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
+import { calculateCartQuantity } from "../data/cart.js";
 let productsHTML = '';
 products.forEach((product)=>{ // each parameter from product saves in this product and which we will use in the function
   // const html = `
@@ -69,6 +70,13 @@ function updateCart(){ //isko cart.js me nhi daal rhe
   console.log(cart);
 }
 // it will select all quieroes with matching class
+function updateCartQuantity() {
+
+  const cartQuantity = calculateCartQuantity();
+  document.querySelector('.js-cart-quantity')
+    .innerHTML = `${cartQuantity} items`;
+}
+// updateCartQuantity();
 document.querySelectorAll('.js-add-to-cart').forEach((button) =>{// button k place pe like k yaa kuch or bhi likh sakte hai
   let addedMessageTimeoutId;
   button.addEventListener('click',()=>{
