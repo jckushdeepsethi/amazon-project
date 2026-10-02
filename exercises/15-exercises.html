@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Module 15 Exercises</title>
+  </head>
+  <body>
+    <h1>Module 15 Practice Exercises (DayJS)</h1>
+    <p>Check the Browser Developer Console (F12 -> Console) to view the output!</p>
+
+    <script type="module">
+      import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
+
+      console.log('--- Module 15 Exercises ---');
+
+      // 15a: Date 5 days after today (formatted as Month Day)
+      const today = dayjs();
+      const fiveDaysLater = today.add(5, 'days');
+      console.log('15a (5 days later):', fiveDaysLater.format('MMMM D'));
+
+      // 15b: Date 1 month after today
+      const oneMonthLater = today.add(1, 'month');
+      console.log('15b (1 month later):', oneMonthLater.format('MMMM D'));
+
+      // 15c: Date 1 month before today
+      const oneMonthBefore = today.subtract(1, 'month');
+      console.log('15c (1 month before):', oneMonthBefore.format('MMMM D'));
+
+      // 15d: Day of the week for today
+      console.log('15d (Day of week):', today.format('dddd'));
+
+      // 15e & 15f: isWeekend(date) function
+      function isWeekend(date) {
+        const dayOfWeek = date.format('dddd');
+        return dayOfWeek === 'Saturday' || dayOfWeek === 'Sunday';
+      }
+
+      console.log('15e/15f (Is today a weekend?):', isWeekend(today));
+      console.log('15e/15f (Is Saturday a weekend?):', isWeekend(today.add(6, 'days')));
+    </script>
+  </body>
+</html>
